@@ -1,26 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Download, ChevronDown } from 'lucide-react';
+import { TypeAnimation } from 'react-type-animation';
 
 const Hero = () => {
-  const [text, setText] = useState('');
-  const fullText = "root@aman:~$ whoami";
   const [isTypingDone, setIsTypingDone] = useState(false);
-
-  useEffect(() => {
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      if (index < fullText.length) {
-        setText((prev) => prev + fullText.charAt(index));
-        index++;
-      } else {
-        clearInterval(typingInterval);
-        setTimeout(() => setIsTypingDone(true), 500);
-      }
-    }, 100);
-
-    return () => clearInterval(typingInterval);
-  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -42,10 +26,17 @@ const Hero = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6 font-mono text-xl md:text-2xl text-cyan-400"
+            className="mb-6 font-mono text-xl md:text-2xl text-cyan-400 min-h-[32px]"
           >
-            <span>{text}</span>
-            <span className="typing-cursor"></span>
+            <TypeAnimation
+              sequence={[
+                'root@aman:~$ whoami',
+                () => setIsTypingDone(true)
+              ]}
+              wrapper="span"
+              cursor={true}
+              speed={40}
+            />
           </motion.div>
 
           {/* Name Reveal */}

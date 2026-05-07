@@ -26,55 +26,55 @@ const Contact = () => {
         viewport={{ once: true, margin: "-100px" }}
       >
         <h2 className="section-title text-center w-full block">COMM_LINK.ESTABLISH()</h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 max-w-5xl mx-auto">
-          
+
           {/* Contact Form */}
           <div className="cyber-card p-8">
             <div className="flex items-center gap-2 mb-6 border-b border-gray-800 pb-4">
               <Terminal size={24} className="text-cyan-400" />
               <h3 className="text-xl font-mono text-white">/bin/send_message</h3>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-mono text-gray-400 mb-2">--name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full bg-gray-900 border border-gray-700 text-white p-3 font-mono focus:outline-none focus:border-cyan-500 transition-colors"
                   placeholder="Enter alias"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-mono text-gray-400 mb-2">--email</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full bg-gray-900 border border-gray-700 text-white p-3 font-mono focus:outline-none focus:border-purple-500 transition-colors"
                   placeholder="Enter comm address"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-mono text-gray-400 mb-2">--payload</label>
-                <textarea 
+                <textarea
                   required
                   rows="4"
                   value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full bg-gray-900 border border-gray-700 text-white p-3 font-mono focus:outline-none focus:border-green-500 transition-colors resize-none"
                   placeholder="Enter transmission data..."
                 ></textarea>
               </div>
-              
-              <button 
-                type="submit" 
+
+              <button
+                type="submit"
                 disabled={status !== 'idle'}
                 className="w-full cyber-btn flex items-center justify-center gap-2 mt-4"
               >
@@ -95,7 +95,7 @@ const Contact = () => {
                 My inbox is always open. Whether you have a question, a project proposal, or just want to discuss the latest in AI and web development, I'll try my best to get back to you!
               </p>
             </div>
-            
+
             <div className="cyber-card p-6 border-l-4 border-l-purple-500">
               <div className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors cursor-pointer group">
                 <div className="p-3 bg-gray-900 rounded-full group-hover:bg-purple-500/20 transition-colors">
@@ -120,7 +120,7 @@ const Contact = () => {
               </a>
             </div>
           </div>
-          
+
         </div>
       </motion.div>
     </section>

@@ -1,12 +1,69 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { Terminal, Code, Cpu, Coffee } from 'lucide-react';
+import { TypeAnimation } from 'react-type-animation';
+import { useState, useEffect, useRef } from 'react';
+
+const useCountUp = (end, duration = 2000, isInView) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    
+    let startTime;
+    let animationFrame;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+      
+      const eased = 1 - Math.pow(1 - percentage, 4);
+      setCount(Math.floor(end * eased));
+      
+      if (progress < duration) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+    
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration, isInView]);
+
+  return count;
+};
+
+const StatItem = ({ stat, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const count = useCountUp(typeof stat.value === 'number' ? stat.value : parseInt(stat.value), 2500, isInView);
+  
+  return (
+    <motion.div 
+      ref={ref}
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.2 + (index * 0.1) }}
+      className="flex flex-col border-l-2 border-cyan-500/30 pl-4 hover:border-cyan-500 transition-colors"
+    >
+      <span className="text-gray-400 flex items-center gap-2 mb-1">
+        {stat.icon} {stat.label}
+      </span>
+      <span className="text-2xl font-bold text-cyan-400 glow-cyan">
+        {stat.value === '9001' ? (count > 9000 ? '9000+' : count) : count}{stat.suffix || '+'}
+      </span>
+    </motion.div>
+  );
+};
 
 const About = () => {
   const stats = [
-    { label: "Lines of Code", value: "100k+", icon: <Code size={20} /> },
-    { label: "Projects", value: "25+", icon: <Terminal size={20} /> },
-    { label: "Technologies", value: "15+", icon: <Cpu size={20} /> },
-    { label: "Coffee Cups", value: "9001", icon: <Coffee size={20} /> },
+    { label: "Lines of Code", value: 100, suffix: "k+", icon: <Code size={20} /> },
+    { label: "Projects", value: 25, suffix: "+", icon: <Terminal size={20} /> },
+    { label: "Technologies", value: 15, suffix: "+", icon: <Cpu size={20} /> },
+    { label: "Coffee Cups", value: 9001, suffix: "+", icon: <Coffee size={20} /> },
   ];
 
   return (
@@ -17,11 +74,18 @@ const About = () => {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="section-title">SYSTEM.ABOUT()</h2>
+        <h2 className="section-title">
+          <TypeAnimation
+            sequence={['SYSTEM.ABOUT()', 1000]}
+            wrapper="span"
+            cursor={true}
+            speed={50}
+          />
+        </h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-8">
           {/* Terminal Stats Window */}
-          <div className="cyber-card p-1 rounded-lg overflow-hidden group">
+          <div className="wireframe-border">
             <div className="bg-gray-900 rounded-lg h-full border border-gray-800">
               {/* Terminal Header */}
               <div className="flex items-center px-4 py-2 bg-gray-800 border-b border-gray-700">
@@ -39,19 +103,7 @@ const About = () => {
                 
                 <div className="grid grid-cols-2 gap-6 mt-6">
                   {stats.map((stat, idx) => (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 + (idx * 0.1) }}
-                      className="flex flex-col border-l-2 border-cyan-500/30 pl-4 hover:border-cyan-500 transition-colors"
-                    >
-                      <span className="text-gray-400 flex items-center gap-2 mb-1">
-                        {stat.icon} {stat.label}
-                      </span>
-                      <span className="text-2xl font-bold text-cyan-400 glow-cyan">{stat.value}</span>
-                    </motion.div>
+                    <StatItem key={idx} stat={stat} index={idx} />
                   ))}
                 </div>
                 

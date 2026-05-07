@@ -7,9 +7,20 @@ import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import MatrixRain from './components/MatrixRain';
+import CustomCursor from './components/CustomCursor';
+import TerminalEasterEgg from './components/TerminalEasterEgg';
+import ParticleSystem from './components/ParticleSystem';
+import { useKonamiCode } from './hooks/useKonamiCode';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [konamiActivated, setKonamiActivated] = useState(false);
+
+  useKonamiCode(() => {
+    setKonamiActivated(true);
+    setTimeout(() => setKonamiActivated(false), 5000); // Effect lasts 5 seconds
+  });
 
   useEffect(() => {
     // Fake boot sequence loading
@@ -37,8 +48,13 @@ function App() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-white font-body selection:bg-cyan-500/30 selection:text-cyan-50">
+    <div className={`relative min-h-screen overflow-hidden text-white font-body selection:bg-cyan-500/30 selection:text-cyan-50 ${konamiActivated ? 'glitch-screen konami-rainbow' : ''}`}>
+      <CustomCursor />
+      <TerminalEasterEgg />
+      
       {/* Background Effects */}
+      <MatrixRain />
+      <ParticleSystem />
       <div className="scanlines"></div>
       <div className="crt-flicker"></div>
       

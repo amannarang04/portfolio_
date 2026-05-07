@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Terminal } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
+import VanillaTilt from 'vanilla-tilt';
 
 const projects = [
   {
@@ -37,6 +39,70 @@ const projects = [
   }
 ];
 
+const ProjectCard = ({ project }) => {
+  const tiltRef = useRef(null);
+
+  useEffect(() => {
+    if (tiltRef.current) {
+      VanillaTilt.init(tiltRef.current, {
+        max: 10,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.2,
+        scale: 1.02,
+      });
+    }
+    return () => {
+      if (tiltRef.current?.vanillaTilt) {
+        tiltRef.current.vanillaTilt.destroy();
+      }
+    };
+  }, []);
+
+  return (
+    <div ref={tiltRef} className="h-full">
+      <div className="cyber-card p-8 h-full flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 transform-style-3d">
+        
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity translate-z-10">
+          <Terminal size={40} style={{ color: project.color }} />
+        </div>
+        <div className="absolute left-0 top-0 w-1 h-full" style={{ backgroundColor: project.color }}></div>
+
+        <div className="translate-z-20">
+          <h3 className="text-2xl font-bold font-heading mb-3 uppercase tracking-widest text-white group-hover:glitch" data-text={project.title}>
+            {project.title}
+          </h3>
+          
+          <div className="bg-gray-900/50 p-4 border border-gray-800 font-mono text-sm text-gray-300 mb-6 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 pointer-events-none"></div>
+            <p className="relative z-10 leading-relaxed">
+              {project.description}
+            </p>
+          </div>
+          
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.tech.map((t, i) => (
+              <span key={i} className="text-xs font-mono px-2 py-1 bg-gray-800 border border-gray-700" style={{ color: project.color }}>
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex gap-4 border-t border-gray-800 pt-4 mt-auto translate-z-10">
+          <a href={project.github} className="flex items-center gap-2 text-sm font-mono text-gray-400 hover:text-white transition-colors">
+            <FaGithub size={16} /> [Source Code]
+          </a>
+          <a href={project.live} className="flex items-center gap-2 text-sm font-mono text-gray-400 hover:text-white transition-colors" style={{ color: project.color }}>
+            <ExternalLink size={16} /> [Execute]
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Projects = () => {
   return (
     <section className="section-container relative z-10" id="projects">
@@ -60,44 +126,7 @@ const Projects = () => {
               transition={{ delay: idx * 0.1, duration: 0.5 }}
               className="group relative"
             >
-              <div className="cyber-card p-8 h-full flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300">
-                
-                {/* Decorative Elements */}
-                <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                  <Terminal size={40} style={{ color: project.color }} />
-                </div>
-                <div className="absolute left-0 top-0 w-1 h-full" style={{ backgroundColor: project.color }}></div>
-
-                <div>
-                  <h3 className="text-2xl font-bold font-heading mb-3 uppercase tracking-widest text-white group-hover:glitch" data-text={project.title}>
-                    {project.title}
-                  </h3>
-                  
-                  <div className="bg-gray-900/50 p-4 border border-gray-800 font-mono text-sm text-gray-300 mb-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 pointer-events-none"></div>
-                    <p className="relative z-10 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.tech.map((t, i) => (
-                      <span key={i} className="text-xs font-mono px-2 py-1 bg-gray-800 border border-gray-700" style={{ color: project.color }}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex gap-4 border-t border-gray-800 pt-4 mt-auto">
-                  <a href={project.github} className="flex items-center gap-2 text-sm font-mono text-gray-400 hover:text-white transition-colors">
-                    <FaGithub size={16} /> [Source Code]
-                  </a>
-                  <a href={project.live} className="flex items-center gap-2 text-sm font-mono text-gray-400 hover:text-white transition-colors" style={{ color: project.color }}>
-                    <ExternalLink size={16} /> [Execute]
-                  </a>
-                </div>
-              </div>
+              <ProjectCard project={project} />
             </motion.div>
           ))}
         </div>

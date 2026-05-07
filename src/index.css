@@ -298,3 +298,88 @@ code, pre {
     padding: 60px 15px;
   }
 }
+
+/* 3D Utilities for Vanilla Tilt */
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.translate-z-10 {
+  transform: translateZ(20px);
+}
+
+.translate-z-20 {
+  transform: translateZ(40px);
+}
+
+/* Glowing Wireframe Borders */
+.wireframe-border {
+  position: relative;
+  padding: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  background-size: 200% 100%;
+  animation: border-flow 3s linear infinite;
+  border-radius: 0.5rem; /* rounded-lg equivalent */
+}
+
+.wireframe-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan));
+  border-radius: inherit;
+  opacity: 0.5;
+  filter: blur(10px);
+  z-index: -1;
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+@keyframes border-flow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+@keyframes pulse-border {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* 3D Tech Icon Rotation */
+.tech-icon-container {
+  perspective: 1000px;
+}
+
+.tech-icon {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.tech-icon-container:hover .tech-icon {
+  transform: rotateY(360deg) scale(1.1);
+}
+
+/* Konami Code Effects */
+@keyframes konami-glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(5px, -5px); }
+  60% { transform: translate(-5px, -5px); }
+  80% { transform: translate(5px, 5px); }
+  100% { transform: translate(0); }
+}
+
+.glitch-screen {
+  animation: konami-glitch 0.3s infinite;
+}
+
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.konami-rainbow {
+  animation: rainbow 1s linear infinite;
+}
