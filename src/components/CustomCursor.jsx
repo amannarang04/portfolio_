@@ -5,8 +5,15 @@ const CustomCursor = () => {
   const [trails, setTrails] = useState([]);
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if the primary input mechanism is a touch screen
+    if (window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768) {
+      setIsMobile(true);
+      return;
+    }
+
     // Hide default cursor
     document.body.style.cursor = 'none';
     
@@ -15,12 +22,16 @@ const CustomCursor = () => {
     style.innerHTML = `* { cursor: none !important; }`;
     document.head.appendChild(style);
 
+    let trailIdCounter = 0;
+
     const updatePosition = (e) => {
       const newPos = { x: e.clientX, y: e.clientY };
       setPosition(newPos);
       
+      trailIdCounter += 1;
+      
       setTrails((prevTrails) => {
-        const newTrails = [...prevTrails, { ...newPos, id: Date.now() }];
+        const newTrails = [...prevTrails, { ...newPos, id: trailIdCounter }];
         return newTrails.slice(-15); // Keep last 15 positions for the trail
       });
     };
@@ -54,12 +65,16 @@ const CustomCursor = () => {
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'auto';
-      document.head.removeChild(style);
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
     };
   }, []);
 
+  if (isMobile) return null;
+
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999]">
+    <div className="pointer-events-none fixed inset-0 z-[9999] hidden md:block">
       {/* Trails */}
       {trails.map((trail, index) => {
         const opacity = (index + 1) / trails.length;

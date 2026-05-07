@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { soundManager } from '../utils/soundManager';
+import AnimatedTitle from './AnimatedTitle';
+import RadarChart from './RadarChart';
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState('skills');
@@ -11,8 +14,11 @@ const Skills = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
       >
-        <div className="cyber-card p-2 md:p-8 rounded-lg">
-          {/* Mock Terminal Window */}
+        <AnimatedTitle text="SYSTEM.SKILLS()" speed={20} />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="cyber-card p-2 md:p-8 rounded-lg flex flex-col h-full">
+            {/* Mock Terminal Window */}
           <div className="bg-[#030510] rounded-lg border border-gray-800 overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)]">
             {/* Terminal Header */}
             <div className="bg-gray-900 px-4 py-2 flex items-center justify-between border-b border-gray-800">
@@ -30,13 +36,21 @@ const Skills = () => {
               {/* Command Input */}
               <div className="flex gap-4 mb-6 text-gray-400">
                 <button 
-                  onClick={() => setActiveTab('skills')}
+                  onMouseEnter={() => soundManager.play('hover')}
+                  onClick={() => {
+                    soundManager.play('click');
+                    setActiveTab('skills');
+                  }}
                   className={`hover:text-cyan-400 transition-colors ${activeTab === 'skills' ? 'text-cyan-400 glow-cyan' : ''}`}
                 >
                   $ ./show_skills.sh
                 </button>
                 <button 
-                  onClick={() => setActiveTab('achievements')}
+                  onMouseEnter={() => soundManager.play('hover')}
+                  onClick={() => {
+                    soundManager.play('click');
+                    setActiveTab('achievements');
+                  }}
                   className={`hover:text-purple-400 transition-colors ${activeTab === 'achievements' ? 'text-purple-400 glow-purple' : ''}`}
                 >
                   $ ./show_achievements.sh
@@ -109,6 +123,16 @@ const Skills = () => {
                   <span className="typing-cursor ml-2"></span>
                 </div>
               </div>
+            </div>
+          </div>
+          </div>
+          
+          <div className="cyber-card p-4 rounded-lg flex flex-col h-full bg-gray-900/30 border border-gray-800">
+            <div className="text-center mb-2 font-mono text-cyan-400 text-sm opacity-80 tracking-widest uppercase">
+              Skill Matrix Visualization
+            </div>
+            <div className="flex-grow flex items-center justify-center">
+              <RadarChart />
             </div>
           </div>
         </div>

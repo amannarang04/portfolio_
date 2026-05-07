@@ -1,44 +1,16 @@
 import { motion, useInView } from 'framer-motion';
 import { Terminal, Code, Cpu, Coffee } from 'lucide-react';
-import { TypeAnimation } from 'react-type-animation';
-import { useState, useEffect, useRef } from 'react';
-
-const useCountUp = (end, duration = 2000, isInView) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    
-    let startTime;
-    let animationFrame;
-
-    const animate = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-      const percentage = Math.min(progress / duration, 1);
-      
-      const eased = 1 - Math.pow(1 - percentage, 4);
-      setCount(Math.floor(end * eased));
-      
-      if (progress < duration) {
-        animationFrame = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-    
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, isInView]);
-
-  return count;
-};
+import { useState, useRef } from 'react';
+import AnimatedTitle from './AnimatedTitle';
+import { useCountUp } from '../hooks/useCountUp';
 
 const StatItem = ({ stat, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const count = useCountUp(typeof stat.value === 'number' ? stat.value : parseInt(stat.value), 2500, isInView);
+  const count = useCountUp(stat.value, 2000, isInView);
   
+  const isComplete = count === stat.value;
+
   return (
     <motion.div 
       ref={ref}
@@ -46,13 +18,25 @@ const StatItem = ({ stat, index }) => {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.2 + (index * 0.1) }}
-      className="flex flex-col border-l-2 border-cyan-500/30 pl-4 hover:border-cyan-500 transition-colors"
+      className="flex flex-col border-l-2 pl-4 transition-all duration-300"
+      style={{ 
+        borderColor: isComplete ? stat.color : 'rgba(255,255,255,0.1)' 
+      }}
     >
-      <span className="text-gray-400 flex items-center gap-2 mb-1">
-        {stat.icon} {stat.label}
+      <span className="text-gray-400 flex items-center gap-2 mb-1 text-xs uppercase tracking-wider">
+        <span style={{ color: isComplete ? stat.color : '#9ca3af', transition: 'color 0.3s' }}>
+          {stat.icon}
+        </span>
+        {stat.label}
       </span>
-      <span className="text-2xl font-bold text-cyan-400 glow-cyan">
-        {stat.value === '9001' ? (count > 9000 ? '9000+' : count) : count}{stat.suffix || '+'}
+      <span 
+        className="text-2xl lg:text-3xl font-bold font-mono transition-all duration-500"
+        style={{ 
+          color: isComplete ? stat.color : '#fff',
+          textShadow: isComplete ? `0 0 15px ${stat.color}` : 'none'
+        }}
+      >
+        {stat.label === 'Coffee Consumed' && isComplete ? '∞' : count}{stat.suffix}
       </span>
     </motion.div>
   );
@@ -60,10 +44,10 @@ const StatItem = ({ stat, index }) => {
 
 const About = () => {
   const stats = [
-    { label: "Lines of Code", value: 100, suffix: "k+", icon: <Code size={20} /> },
-    { label: "Projects", value: 25, suffix: "+", icon: <Terminal size={20} /> },
-    { label: "Technologies", value: 15, suffix: "+", icon: <Cpu size={20} /> },
-    { label: "Coffee Cups", value: 9001, suffix: "+", icon: <Coffee size={20} /> },
+    { label: "Lines of Code", value: 10000, suffix: "+", icon: <Code size={20} />, color: 'var(--neon-cyan)' },
+    { label: "Projects Completed", value: 32, suffix: "+", icon: <Terminal size={20} />, color: 'var(--neon-purple)' },
+    { label: "Technologies Mastered", value: 25, suffix: "+", icon: <Cpu size={20} />, color: 'var(--neon-green)' },
+    { label: "Coffee Consumed", value: 999, suffix: "", icon: <Coffee size={20} />, color: 'var(--neon-pink)' },
   ];
 
   return (
@@ -74,14 +58,7 @@ const About = () => {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="section-title">
-          <TypeAnimation
-            sequence={['SYSTEM.ABOUT()', 1000]}
-            wrapper="span"
-            cursor={true}
-            speed={50}
-          />
-        </h2>
+        <AnimatedTitle text="SYSTEM.ABOUT()" speed={20} />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-8">
           {/* Terminal Stats Window */}

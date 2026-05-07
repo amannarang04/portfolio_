@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal, X } from 'lucide-react';
+import { soundManager } from '../utils/soundManager';
 
 const TerminalEasterEgg = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,11 @@ const TerminalEasterEgg = () => {
       // Ctrl + ~ or Ctrl + `
       if (e.ctrlKey && (e.key === '`' || e.key === '~')) {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
+        setIsOpen((prev) => {
+          const newState = !prev;
+          if (newState) soundManager.play('terminalOpen');
+          return newState;
+        });
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -64,15 +69,23 @@ const TerminalEasterEgg = () => {
         break;
       case 'clear':
         setHistory([]);
+        soundManager.play('success');
         return;
       case 'exit':
         setIsOpen(false);
+        soundManager.play('click');
         return;
       case 'sudo':
         response = 'Nice try, but you are already root.';
+        soundManager.play('error');
         break;
       default:
         response = `bash: ${command}: command not found`;
+        soundManager.play('error');
+    }
+
+    if (command !== 'clear' && command !== 'exit' && command !== 'sudo' && response && !response.includes('not found')) {
+      soundManager.play('success');
     }
 
     setHistory((prev) => [
@@ -131,7 +144,11 @@ const TerminalEasterEgg = () => {
                 ref={inputRef}
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  soundManager.play('typing');
+                  setTimeout(() => soundManager.stop('typing'), 100);
+                }}
                 className="flex-1 bg-transparent border-none outline-none text-white font-mono"
                 spellCheck={false}
                 autoFocus

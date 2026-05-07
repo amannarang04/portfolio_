@@ -12,10 +12,17 @@ import CustomCursor from './components/CustomCursor';
 import TerminalEasterEgg from './components/TerminalEasterEgg';
 import ParticleSystem from './components/ParticleSystem';
 import { useKonamiCode } from './hooks/useKonamiCode';
+import SoundToggle from './components/SoundToggle';
+import { soundManager } from './utils/soundManager';
+import ThemeSwitcher from './components/ThemeSwitcher';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [konamiActivated, setKonamiActivated] = useState(false);
+  
+  // Initialize theme on app load
+  useTheme();
 
   useKonamiCode(() => {
     setKonamiActivated(true);
@@ -23,6 +30,9 @@ function App() {
   });
 
   useEffect(() => {
+    // Play boot sound on initial load
+    soundManager.play('boot');
+    
     // Fake boot sequence loading
     const timer = setTimeout(() => {
       setLoading(false);
@@ -49,6 +59,8 @@ function App() {
 
   return (
     <div className={`relative min-h-screen overflow-hidden text-white font-body selection:bg-cyan-500/30 selection:text-cyan-50 ${konamiActivated ? 'glitch-screen konami-rainbow' : ''}`}>
+      <ThemeSwitcher />
+      <SoundToggle />
       <CustomCursor />
       <TerminalEasterEgg />
       

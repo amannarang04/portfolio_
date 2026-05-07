@@ -2,9 +2,15 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Download, ChevronDown } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
+import { soundManager } from '../utils/soundManager';
+import DownloadCV from './DownloadCV';
 
 const Hero = () => {
   const [isTypingDone, setIsTypingDone] = useState(false);
+
+  useEffect(() => {
+    soundManager.play('typing');
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -31,7 +37,10 @@ const Hero = () => {
             <TypeAnimation
               sequence={[
                 'root@aman:~$ whoami',
-                () => setIsTypingDone(true)
+                () => {
+                  setIsTypingDone(true);
+                  soundManager.stop('typing');
+                }
               ]}
               wrapper="span"
               cursor={true}
@@ -52,14 +61,22 @@ const Hero = () => {
                 </span>
               </h1>
               
-              <motion.h2 
+              <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
-                className="text-xl md:text-3xl text-purple-400 font-mono mb-8"
+                className="text-xl md:text-3xl text-purple-400 font-mono mb-8 min-h-[2rem]"
               >
-                Full Stack Developer <span className="text-white mx-2">|</span> Prompt Engineer
-              </motion.h2>
+                <TypeAnimation
+                  sequence={[
+                    500,
+                    'Full Stack Developer | Prompt Engineer'
+                  ]}
+                  speed={40}
+                  cursor={true}
+                  wrapper="h2"
+                />
+              </motion.div>
 
               <motion.p
                 initial={{ opacity: 0 }}
@@ -77,14 +94,18 @@ const Hero = () => {
                 transition={{ delay: 1.2, duration: 0.5 }}
                 className="flex flex-col sm:flex-row gap-6 justify-center"
               >
-                <button className="cyber-btn flex items-center justify-center gap-2 group">
+                <button 
+                  onMouseEnter={() => soundManager.play('hover')}
+                  onClick={() => soundManager.play('click')}
+                  className="cyber-btn flex items-center justify-center gap-2 group"
+                >
                   <Terminal size={20} className="group-hover:animate-pulse" />
                   View Projects
                 </button>
-                <button className="cyber-btn flex items-center justify-center gap-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_5px_#a855f7_inset,0_0_5px_#a855f7] hover:shadow-[0_0_20px_#a855f7_inset,0_0_20px_#a855f7]">
+                <DownloadCV className="cyber-btn flex items-center justify-center gap-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_5px_#a855f7_inset,0_0_5px_#a855f7] hover:shadow-[0_0_20px_#a855f7_inset,0_0_20px_#a855f7]">
                   <Download size={20} />
                   Download CV
-                </button>
+                </DownloadCV>
               </motion.div>
             </motion.div>
           )}

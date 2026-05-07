@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { soundManager } from '../utils/soundManager';
 
 const KONAMI_CODE = [
   'ArrowUp', 'ArrowUp',
@@ -20,6 +21,7 @@ export const useKonamiCode = (callback) => {
         const newKeys = [...prevKeys, key].slice(-10);
         
         if (newKeys.join(',') === KONAMI_CODE.join(',')) {
+          soundManager.play('glitch');
           callback();
           return [];
         }

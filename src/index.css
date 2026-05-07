@@ -29,6 +29,14 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add smooth transitions for theme switching globally but carefully */
+* {
+  transition-property: background-color, border-color, color, box-shadow, text-shadow, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -382,4 +390,33 @@ code, pre {
 
 .konami-rainbow {
   animation: rainbow 1s linear infinite;
+}
+
+/* Pulsing Ring Animation */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 var(--hover-color, rgba(255, 255, 255, 0.7));
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* 3D Y-Axis Rotation for Tech Stack Icons */
+.group:hover .group-hover\:rotate-y-360 {
+  transform: rotateY(360deg);
+}
+
+.tech-icon-wrapper {
+  perspective: 1000px;
 }

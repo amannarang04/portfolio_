@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Calendar } from 'lucide-react';
+import AnimatedTitle from './AnimatedTitle';
 
 const timeline = [
   {
@@ -44,7 +45,7 @@ const Experience = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        <h2 className="section-title text-right w-full block">TIMELINE.LOG()</h2>
+        <AnimatedTitle text="TIMELINE.LOG()" speed={20} className="section-title text-right w-full block" />
         
         <div className="relative mt-16 max-w-4xl mx-auto">
           {/* Vertical Line */}
