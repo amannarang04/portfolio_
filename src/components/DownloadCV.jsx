@@ -71,7 +71,7 @@ const DownloadCV = ({ className, children }) => {
           exit={{ opacity: 0, y: 50, x: 50 }}
           className="fixed bottom-6 right-6 w-80 md:w-96 z-[9999] font-mono"
         >
-          <div className="bg-[#050816]/95 border border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.2)] rounded-lg overflow-hidden backdrop-blur-md">
+          <div className="bg-black/95 border border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.2)] rounded-lg overflow-hidden backdrop-blur-md">
             {/* Terminal Header */}
             <div className="bg-gray-900 border-b border-purple-500/30 p-2 flex justify-between items-center">
               <div className="flex items-center gap-2 text-purple-400">

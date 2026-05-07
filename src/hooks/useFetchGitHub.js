@@ -26,10 +26,11 @@ export const useFetchGitHub = (username) => {
             name: repo.name.replace(/-/g, ' ').replace(/_/g, ' '),
             description: repo.description || 'No description provided.',
             html_url: repo.html_url,
-            homepage: repo.homepage,
+            homepage: repo.homepage || repo.html_url,
             stargazers_count: repo.stargazers_count,
             forks_count: repo.forks_count,
             language: repo.language || 'Markdown',
+            tech: [repo.language].filter(Boolean),
             updated_at: repo.updated_at,
           }));
 

@@ -20,7 +20,7 @@ const SoundToggle = () => {
   return (
     <button
       onClick={handleToggle}
-      className="fixed top-6 right-6 z-50 p-3 rounded-full bg-black/50 border border-cyan-500/30 text-cyan-500 hover:bg-cyan-500/20 hover:border-cyan-500 transition-all duration-300 backdrop-blur-sm group"
+      className="fixed top-4 right-16 lg:top-6 lg:right-6 z-[90] p-3 rounded-full bg-black/50 border border-cyan-500/30 text-cyan-500 hover:bg-cyan-500/20 hover:border-cyan-500 transition-all duration-300 backdrop-blur-sm group"
       aria-label="Toggle Sound"
     >
       {isMuted ? (

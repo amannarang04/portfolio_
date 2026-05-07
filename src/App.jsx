@@ -16,6 +16,9 @@ import SoundToggle from './components/SoundToggle';
 import { soundManager } from './utils/soundManager';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import { useTheme } from './hooks/useTheme';
+import MobileMenu from './components/MobileMenu';
+import { Analytics } from '@vercel/analytics/react';
+import NotFound from './pages/NotFound';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -30,6 +33,12 @@ function App() {
   });
 
   useEffect(() => {
+    // Hidden console Easter Egg for Terminal
+    console.log(
+      '%c[SYSTEM ADMIN] Temporary override password: cyber_ninja_42',
+      'color: #00ffff; background: #000; padding: 10px; font-size: 14px; font-family: monospace; border: 1px solid #00ffff;'
+    );
+    
     // Play boot sound on initial load
     soundManager.play('boot');
     
@@ -40,9 +49,13 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+    return <NotFound />;
+  }
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050816] flex flex-col items-center justify-center font-mono text-cyan-400 p-5">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center font-mono text-cyan-400 p-5">
         <div className="w-full max-w-lg">
           <p className="text-green-500 mb-2">Initialize CyberBoot Sequence v1.0.4...</p>
           <p className="mb-2 opacity-80">Loading neural pathways...</p>
@@ -62,7 +75,9 @@ function App() {
       <ThemeSwitcher />
       <SoundToggle />
       <CustomCursor />
+      <MobileMenu />
       <TerminalEasterEgg />
+      <Analytics />
       
       {/* Background Effects */}
       <MatrixRain />

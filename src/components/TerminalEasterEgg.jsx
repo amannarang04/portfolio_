@@ -10,6 +10,7 @@ const TerminalEasterEgg = () => {
     { type: 'output', text: 'CYBER TERMINAL v2.077 - AMAN.SYS' },
     { type: 'output', text: 'Type "help" for available commands.' }
   ]);
+  const [isAwaitingPassword, setIsAwaitingPassword] = useState(false);
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
 
@@ -45,10 +46,22 @@ const TerminalEasterEgg = () => {
 
     let response = '';
 
-    switch (command) {
-      case 'help':
-        response = `Available commands:\n- about: Display bio\n- skills: List tech stack\n- projects: View projects\n- clear: Clear terminal\n- whoami: Display current user\n- date: Show system time\n- hack: Initialize override protocol\n- exit: Close terminal`;
-        break;
+    if (isAwaitingPassword) {
+      if (command === 'cyber_ninja_42') {
+        response = 'ACCESS GRANTED. WELCOME, ADMIN.\n[ACHIEVEMENT UNLOCKED: MASTER HACKER]';
+        soundManager.play('glitch');
+        document.body.classList.add('glitch-screen', 'konami-rainbow');
+        setTimeout(() => document.body.classList.remove('glitch-screen', 'konami-rainbow'), 5000);
+      } else {
+        response = 'ACCESS DENIED. INCORRECT PASSWORD.\nALERT: INCIDENT LOGGED.';
+        soundManager.play('error');
+      }
+      setIsAwaitingPassword(false);
+    } else {
+      switch (command) {
+        case 'help':
+          response = `Available commands:\n- about: Display bio\n- skills: List tech stack\n- projects: View projects\n- clear: Clear terminal\n- whoami: Display current user\n- date: Show system time\n- hack: Initialize override protocol\n- override: [RESTRICTED]\n- exit: Close terminal`;
+          break;
       case 'about':
         response = 'AMAN NARANG - Full Stack Developer | Prompt Engineer\nArchitecting digital solutions in the neon-lit intersection of clean code and artificial intelligence.';
         break;
@@ -58,16 +71,35 @@ const TerminalEasterEgg = () => {
       case 'projects':
         response = '1. Mental Health Bot\n2. Open Supply Environment\n3. Flight Tracker\n4. Cyber Portfolio';
         break;
+      case 'resume':
+        window.open('/Aman_Narang_Resume.pdf', '_blank');
+        response = 'Opening resume in new window...';
+        break;
+      case 'contact':
+        response = 'Email: 0402narang@gmail.com\nLinkedIn: linkedin.com/in/aman-narang-8aa904341/\nGitHub: github.com/amannarang04';
+        break;
+      case 'github':
+        window.open('https://github.com/amannarang04', '_blank');
+        response = 'Opening GitHub profile...';
+        break;
+      case 'theme':
+        response = 'Use the theme switcher button (top right)!';
+        break;
       case 'whoami':
         response = 'root@aman';
         break;
-      case 'date':
-        response = `SYSTEM_TIME: [${new Date().toISOString()}]`;
-        break;
-      case 'hack':
-        response = 'ACCESS DENIED. SECURE CONNECTION REQUIRED.\nJust kidding! Matrix rain initialized on main screen...';
-        break;
-      case 'clear':
+        case 'date':
+          response = `SYSTEM_TIME: [${new Date().toISOString()}]`;
+          break;
+        case 'hack':
+          response = 'ACCESS DENIED. SECURE CONNECTION REQUIRED.\nJust kidding! Matrix rain initialized on main screen...';
+          break;
+        case 'override':
+          response = 'SYSTEM OVERRIDE INITIATED.\nCRITICAL: PASSWORD REQUIRED:';
+          setIsAwaitingPassword(true);
+          soundManager.play('error');
+          break;
+        case 'clear':
         setHistory([]);
         soundManager.play('success');
         return;
@@ -79,18 +111,19 @@ const TerminalEasterEgg = () => {
         response = 'Nice try, but you are already root.';
         soundManager.play('error');
         break;
-      default:
-        response = `bash: ${command}: command not found`;
-        soundManager.play('error');
+        default:
+          response = `bash: ${command}: command not found`;
+          soundManager.play('error');
+      }
     }
 
-    if (command !== 'clear' && command !== 'exit' && command !== 'sudo' && response && !response.includes('not found')) {
+    if (!isAwaitingPassword && command !== 'clear' && command !== 'exit' && command !== 'sudo' && command !== 'override' && response && !response.includes('not found') && !response.includes('ACCESS DENIED')) {
       soundManager.play('success');
     }
 
     setHistory((prev) => [
       ...prev,
-      { type: 'input', text: `root@aman:~$ ${cmd}` },
+      { type: 'input', text: isAwaitingPassword ? 'root@aman:~$ [HIDDEN_INPUT]' : `root@aman:~$ ${cmd}` },
       { type: 'output', text: response }
     ]);
   };
@@ -108,10 +141,11 @@ const TerminalEasterEgg = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-4 right-4 md:bottom-10 md:right-10 w-[90vw] md:w-[600px] h-[400px] z-[100] wireframe-border"
+          className="fixed bottom-4 right-4 md:bottom-10 md:right-10 w-[90vw] md:w-[600px] h-[400px] z-[100]"
           style={{ cursor: 'auto' }}
         >
-          <div className="w-full h-full bg-[#050816]/95 flex flex-col backdrop-blur-md overflow-hidden rounded-lg">
+          <div className="w-full h-full wireframe-border rounded-lg">
+            <div className="w-full h-full bg-black/95 flex flex-col backdrop-blur-md overflow-hidden rounded-lg">
             {/* Terminal Header */}
           <div className="bg-gray-900 border-b border-cyan-500/50 p-2 flex justify-between items-center cursor-move">
             <div className="flex items-center gap-2 text-cyan-500">
@@ -139,10 +173,12 @@ const TerminalEasterEgg = () => {
             ))}
             
             <form onSubmit={handleSubmit} className="flex mt-2 items-center">
-              <span className="text-cyan-500 mr-2">root@aman:~$</span>
+              <span className="text-cyan-500 mr-2">
+                {isAwaitingPassword ? 'Password:' : 'root@aman:~$'}
+              </span>
               <input
                 ref={inputRef}
-                type="text"
+                type={isAwaitingPassword ? 'password' : 'text'}
                 value={input}
                 onChange={(e) => {
                   setInput(e.target.value);
@@ -155,6 +191,7 @@ const TerminalEasterEgg = () => {
               />
             </form>
             <div ref={bottomRef} />
+          </div>
           </div>
           </div>
         </motion.div>

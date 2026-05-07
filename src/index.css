@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #050816;
-  --bg-secondary: #0a0e27;
+  --bg-primary: 5 8 22;
+  --bg-secondary: 10 14 39;
   --neon-cyan: #00ffff;
   --neon-purple: #a855f7;
   --neon-green: #39ff14;
   --neon-pink: #ff006e;
-  --text-primary: #ffffff;
-  --text-secondary: #a0aec0;
-  
+  --text-primary: 255 255 255;
+  --text-secondary: 156 163 175;
+  --border-color: 31 41 55;
+
   --font-heading: 'Orbitron', sans-serif;
   --font-body: 'Rajdhani', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -24,8 +25,8 @@
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
   font-family: var(--font-body);
   overflow-x: hidden;
   line-height: 1.6;
@@ -39,12 +40,18 @@ body {
   transition-timing-function: ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   letter-spacing: 2px;
 }
 
-code, pre {
+code,
+pre {
   font-family: var(--font-mono);
 }
 
@@ -54,7 +61,7 @@ code, pre {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: rgb(var(--bg-primary));
 }
 
 ::-webkit-scrollbar-thumb {
@@ -67,15 +74,37 @@ code, pre {
 }
 
 /* Utilities */
-.text-cyan { color: var(--neon-cyan); }
-.text-purple { color: var(--neon-purple); }
-.text-green { color: var(--neon-green); }
-.text-pink { color: var(--neon-pink); }
+.text-cyan {
+  color: var(--neon-cyan);
+}
 
-.glow-cyan { text-shadow: 0 0 10px var(--neon-cyan); }
-.glow-purple { text-shadow: 0 0 10px var(--neon-purple); }
-.glow-green { text-shadow: 0 0 10px var(--neon-green); }
-.glow-pink { text-shadow: 0 0 10px var(--neon-pink); }
+.text-purple {
+  color: var(--neon-purple);
+}
+
+.text-green {
+  color: var(--neon-green);
+}
+
+.text-pink {
+  color: var(--neon-pink);
+}
+
+.glow-cyan {
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.glow-purple {
+  text-shadow: 0 0 10px var(--neon-purple);
+}
+
+.glow-green {
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+.glow-pink {
+  text-shadow: 0 0 10px var(--neon-pink);
+}
 
 /* Glitch Effect */
 .glitch {
@@ -108,51 +137,175 @@ code, pre {
 }
 
 @keyframes glitch-anim {
-  0% { clip: rect(74px, 9999px, 83px, 0); }
-  5% { clip: rect(22px, 9999px, 8px, 0); }
-  10% { clip: rect(38px, 9999px, 54px, 0); }
-  15% { clip: rect(100px, 9999px, 59px, 0); }
-  20% { clip: rect(59px, 9999px, 34px, 0); }
-  25% { clip: rect(48px, 9999px, 63px, 0); }
-  30% { clip: rect(27px, 9999px, 30px, 0); }
-  35% { clip: rect(37px, 9999px, 59px, 0); }
-  40% { clip: rect(21px, 9999px, 6px, 0); }
-  45% { clip: rect(81px, 9999px, 85px, 0); }
-  50% { clip: rect(47px, 9999px, 4px, 0); }
-  55% { clip: rect(70px, 9999px, 20px, 0); }
-  60% { clip: rect(17px, 9999px, 22px, 0); }
-  65% { clip: rect(47px, 9999px, 34px, 0); }
-  70% { clip: rect(51px, 9999px, 81px, 0); }
-  75% { clip: rect(31px, 9999px, 95px, 0); }
-  80% { clip: rect(93px, 9999px, 85px, 0); }
-  85% { clip: rect(1px, 9999px, 53px, 0); }
-  90% { clip: rect(83px, 9999px, 12px, 0); }
-  95% { clip: rect(55px, 9999px, 44px, 0); }
-  100% { clip: rect(1px, 9999px, 16px, 0); }
+  0% {
+    clip: rect(74px, 9999px, 83px, 0);
+  }
+
+  5% {
+    clip: rect(22px, 9999px, 8px, 0);
+  }
+
+  10% {
+    clip: rect(38px, 9999px, 54px, 0);
+  }
+
+  15% {
+    clip: rect(100px, 9999px, 59px, 0);
+  }
+
+  20% {
+    clip: rect(59px, 9999px, 34px, 0);
+  }
+
+  25% {
+    clip: rect(48px, 9999px, 63px, 0);
+  }
+
+  30% {
+    clip: rect(27px, 9999px, 30px, 0);
+  }
+
+  35% {
+    clip: rect(37px, 9999px, 59px, 0);
+  }
+
+  40% {
+    clip: rect(21px, 9999px, 6px, 0);
+  }
+
+  45% {
+    clip: rect(81px, 9999px, 85px, 0);
+  }
+
+  50% {
+    clip: rect(47px, 9999px, 4px, 0);
+  }
+
+  55% {
+    clip: rect(70px, 9999px, 20px, 0);
+  }
+
+  60% {
+    clip: rect(17px, 9999px, 22px, 0);
+  }
+
+  65% {
+    clip: rect(47px, 9999px, 34px, 0);
+  }
+
+  70% {
+    clip: rect(51px, 9999px, 81px, 0);
+  }
+
+  75% {
+    clip: rect(31px, 9999px, 95px, 0);
+  }
+
+  80% {
+    clip: rect(93px, 9999px, 85px, 0);
+  }
+
+  85% {
+    clip: rect(1px, 9999px, 53px, 0);
+  }
+
+  90% {
+    clip: rect(83px, 9999px, 12px, 0);
+  }
+
+  95% {
+    clip: rect(55px, 9999px, 44px, 0);
+  }
+
+  100% {
+    clip: rect(1px, 9999px, 16px, 0);
+  }
 }
 
 @keyframes glitch-anim2 {
-  0% { clip: rect(64px, 9999px, 2px, 0); }
-  5% { clip: rect(7px, 9999px, 12px, 0); }
-  10% { clip: rect(86px, 9999px, 45px, 0); }
-  15% { clip: rect(61px, 9999px, 3px, 0); }
-  20% { clip: rect(81px, 9999px, 99px, 0); }
-  25% { clip: rect(7px, 9999px, 4px, 0); }
-  30% { clip: rect(100px, 9999px, 56px, 0); }
-  35% { clip: rect(1px, 9999px, 66px, 0); }
-  40% { clip: rect(88px, 9999px, 81px, 0); }
-  45% { clip: rect(12px, 9999px, 67px, 0); }
-  50% { clip: rect(33px, 9999px, 73px, 0); }
-  55% { clip: rect(72px, 9999px, 36px, 0); }
-  60% { clip: rect(82px, 9999px, 59px, 0); }
-  65% { clip: rect(33px, 9999px, 73px, 0); }
-  70% { clip: rect(68px, 9999px, 41px, 0); }
-  75% { clip: rect(21px, 9999px, 88px, 0); }
-  80% { clip: rect(98px, 9999px, 90px, 0); }
-  85% { clip: rect(56px, 9999px, 19px, 0); }
-  90% { clip: rect(27px, 9999px, 72px, 0); }
-  95% { clip: rect(9px, 9999px, 43px, 0); }
-  100% { clip: rect(63px, 9999px, 45px, 0); }
+  0% {
+    clip: rect(64px, 9999px, 2px, 0);
+  }
+
+  5% {
+    clip: rect(7px, 9999px, 12px, 0);
+  }
+
+  10% {
+    clip: rect(86px, 9999px, 45px, 0);
+  }
+
+  15% {
+    clip: rect(61px, 9999px, 3px, 0);
+  }
+
+  20% {
+    clip: rect(81px, 9999px, 99px, 0);
+  }
+
+  25% {
+    clip: rect(7px, 9999px, 4px, 0);
+  }
+
+  30% {
+    clip: rect(100px, 9999px, 56px, 0);
+  }
+
+  35% {
+    clip: rect(1px, 9999px, 66px, 0);
+  }
+
+  40% {
+    clip: rect(88px, 9999px, 81px, 0);
+  }
+
+  45% {
+    clip: rect(12px, 9999px, 67px, 0);
+  }
+
+  50% {
+    clip: rect(33px, 9999px, 73px, 0);
+  }
+
+  55% {
+    clip: rect(72px, 9999px, 36px, 0);
+  }
+
+  60% {
+    clip: rect(82px, 9999px, 59px, 0);
+  }
+
+  65% {
+    clip: rect(33px, 9999px, 73px, 0);
+  }
+
+  70% {
+    clip: rect(68px, 9999px, 41px, 0);
+  }
+
+  75% {
+    clip: rect(21px, 9999px, 88px, 0);
+  }
+
+  80% {
+    clip: rect(98px, 9999px, 90px, 0);
+  }
+
+  85% {
+    clip: rect(56px, 9999px, 19px, 0);
+  }
+
+  90% {
+    clip: rect(27px, 9999px, 72px, 0);
+  }
+
+  95% {
+    clip: rect(9px, 9999px, 43px, 0);
+  }
+
+  100% {
+    clip: rect(63px, 9999px, 45px, 0);
+  }
 }
 
 /* Scanlines Effect */
@@ -162,13 +315,11 @@ code, pre {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0) 50%,
-    rgba(0,0,0,0.2) 50%,
-    rgba(0,0,0,0.2)
-  );
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.2));
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 50;
@@ -190,9 +341,17 @@ code, pre {
 }
 
 @keyframes crtFlicker {
-  0% { opacity: 0.02; }
-  50% { opacity: 0.05; }
-  100% { opacity: 0.02; }
+  0% {
+    opacity: 0.02;
+  }
+
+  50% {
+    opacity: 0.05;
+  }
+
+  100% {
+    opacity: 0.02;
+  }
 }
 
 /* Cyber Button */
@@ -213,7 +372,7 @@ code, pre {
 
 .cyber-btn:hover {
   background: var(--neon-cyan);
-  color: var(--bg-primary);
+  color: rgb(var(--bg-primary));
   box-shadow: 0 0 20px var(--neon-cyan) inset, 0 0 20px var(--neon-cyan);
 }
 
@@ -224,7 +383,7 @@ code, pre {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: 0.5s;
 }
 
@@ -233,7 +392,7 @@ code, pre {
 }
 
 .cyber-card {
-  background: rgba(10, 14, 39, 0.7);
+  background: rgb(var(--bg-secondary) / 0.7);
   border: 1px solid rgba(0, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   position: relative;
@@ -294,14 +453,22 @@ code, pre {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 @media (max-width: 768px) {
   .section-title {
     font-size: 2rem;
   }
+
   .section-container {
     padding: 60px 15px;
   }
@@ -327,7 +494,8 @@ code, pre {
   background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
   background-size: 200% 100%;
   animation: border-flow 3s linear infinite;
-  border-radius: 0.5rem; /* rounded-lg equivalent */
+  border-radius: 0.5rem;
+  /* rounded-lg equivalent */
 }
 
 .wireframe-border::before {
@@ -346,13 +514,25 @@ code, pre {
 }
 
 @keyframes border-flow {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 200% 0%; }
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 200% 0%;
+  }
 }
 
 @keyframes pulse-border {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
 }
 
 /* 3D Tech Icon Rotation */
@@ -371,12 +551,29 @@ code, pre {
 
 /* Konami Code Effects */
 @keyframes konami-glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-5px, 5px); }
-  40% { transform: translate(5px, -5px); }
-  60% { transform: translate(-5px, -5px); }
-  80% { transform: translate(5px, 5px); }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-5px, 5px);
+  }
+
+  40% {
+    transform: translate(5px, -5px);
+  }
+
+  60% {
+    transform: translate(-5px, -5px);
+  }
+
+  80% {
+    transform: translate(5px, 5px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 .glitch-screen {
@@ -384,8 +581,13 @@ code, pre {
 }
 
 @keyframes rainbow {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .konami-rainbow {
@@ -398,10 +600,12 @@ code, pre {
     transform: scale(0.8);
     box-shadow: 0 0 0 0 var(--hover-color, rgba(255, 255, 255, 0.7));
   }
+
   70% {
     transform: scale(1.1);
     box-shadow: 0 0 0 10px transparent;
   }
+
   100% {
     transform: scale(0.8);
     box-shadow: 0 0 0 0 transparent;

@@ -32,7 +32,7 @@ const ThemeSwitcher = () => {
   };
 
   return (
-    <div className="fixed top-6 right-20 z-50" ref={dropdownRef}>
+    <div className="fixed top-4 right-32 lg:top-6 lg:right-20 z-[90]" ref={dropdownRef}>
       <button
         onClick={handleToggle}
         onMouseEnter={() => soundManager.play('hover')}

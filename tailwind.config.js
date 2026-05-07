@@ -7,9 +7,20 @@ export default {
   theme: {
     extend: {
       colors: {
+        white: 'rgb(var(--text-primary) / <alpha-value>)',
+        black: 'rgb(var(--bg-primary) / <alpha-value>)',
+        gray: {
+          300: 'rgb(var(--text-secondary) / <alpha-value>)',
+          400: 'rgb(var(--text-secondary) / <alpha-value>)',
+          500: 'rgb(var(--text-secondary) / <alpha-value>)',
+          600: 'rgb(var(--text-secondary) / <alpha-value>)',
+          700: 'rgb(var(--border-color) / <alpha-value>)',
+          800: 'rgb(var(--border-color) / <alpha-value>)',
+          900: 'rgb(var(--bg-secondary) / <alpha-value>)',
+        },
         cyber: {
-          dark: '#050816',
-          darker: '#0a0e27',
+          dark: 'rgb(var(--bg-primary) / <alpha-value>)',
+          darker: 'rgb(var(--bg-secondary) / <alpha-value>)',
           cyan: '#00ffff',
           purple: '#a855f7',
           green: '#39ff14',

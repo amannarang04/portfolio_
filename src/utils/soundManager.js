@@ -32,6 +32,9 @@ export const soundManager = {
       sounds[soundName].stop();
     }
   },
+  stopAll: () => {
+    Object.values(sounds).forEach(sound => sound.stop());
+  },
   toggleMute: () => {
     const currentlyMuted = localStorage.getItem('portfolio_muted') === 'true';
     const newMutedState = !currentlyMuted;
