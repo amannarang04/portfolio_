@@ -215,7 +215,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="text-sm font-mono text-gray-500">Primary Protocol</div>
-                  <div className="font-mono text-lg">contact@amannarang.dev</div>
+                  <div className="font-mono text-lg">5054aman@gmail.com</div>
                 </div>
               </div>
             </div>
@@ -244,7 +244,7 @@ const Contact = () => {
               />
               <SocialLink
                 icon={FaEnvelope}
-                href="mailto:0402narang@gmail.com"
+                href="mailto:5054aman@gmail.com"
                 label="Email Address"
                 tooltip="Send payload"
                 color="var(--neon-purple)"

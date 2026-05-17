@@ -71,7 +71,7 @@ const Footer = () => {
           />
           <SocialLink 
             icon={FaEnvelope} 
-            href="mailto:0402narang@gmail.com" 
+            href="mailto:5054aman@gmail.com" 
             label="Email Address" 
             tooltip="Send payload" 
             color="var(--neon-purple)" 

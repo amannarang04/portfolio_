@@ -76,7 +76,7 @@ const TerminalEasterEgg = () => {
         response = 'Opening resume in new window...';
         break;
       case 'contact':
-        response = 'Email: 0402narang@gmail.com\nLinkedIn: linkedin.com/in/aman-narang-8aa904341/\nGitHub: github.com/amannarang04';
+        response = 'Email: 5054aman@gmail.com\nLinkedIn: linkedin.com/in/aman-narang-8aa904341/\nGitHub: github.com/amannarang04';
         break;
       case 'github':
         window.open('https://github.com/amannarang04', '_blank');
