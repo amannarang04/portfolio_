@@ -5,9 +5,17 @@ import AnimatedTitle from './AnimatedTitle';
 const timeline = [
   {
     type: 'Education',
-    date: '2022 - Present',
-    title: 'B.Tech in Computer Science',
-    organization: 'University Name',
+    date: '2025-2029',
+    title: 'Bachelors in Computer Science',
+    organization: 'Scaler School Of Technology',
+    description: 'Specializing in software engineering and artificial intelligence. Maintaining a strong GPA while actively participating in tech clubs.',
+    color: 'var(--neon-cyan)'
+  },
+  {
+    type: 'Education',
+    date: '2025-2029',
+    title: 'Bachelors in Data Science And Application',
+    organization: 'IIT - Madras',
     description: 'Specializing in software engineering and artificial intelligence. Maintaining a strong GPA while actively participating in tech clubs.',
     color: 'var(--neon-cyan)'
   },
