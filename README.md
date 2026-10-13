@@ -23,6 +23,20 @@
 
 ---
 
+<div align="center">
+
+### `LIVE INTERFACE // 3-FRAME WALKTHROUGH`
+
+<a href="https://amanweb-lemon.vercel.app">
+  <img src="./public/portfolio-walkthrough.gif" alt="Animated walkthrough of the portfolio hero, projects, and experience sections" width="92%">
+</a>
+
+*Hero boot sequence → project grid → experience timeline. Click to launch the live portfolio.*
+
+</div>
+
+---
+
 ## `> whoami`
 
 A personal portfolio built as a playful cyberpunk interface: terminal-inspired visuals, neon accents, animated sections, and a timeline for projects, skills, education, and experience.
