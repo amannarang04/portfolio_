@@ -2,22 +2,27 @@
 
 <div align="center">
 
-```text
-     █████╗ ███╗   ███╗ █████╗ ███╗   ██╗
-    ██╔══██╗████╗ ████║██╔══██╗████╗  ██║
-    ███████║██╔████╔██║███████║██╔██╗ ██║
-    ██╔══██║██║╚██╔╝██║██╔══██║██║╚██╗██║
-    ██║  ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║
-    ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
-
-    [ SYSTEM ONLINE ]  [ PORTFOLIO: LOADED ]
-```
+<img src="./public/readme-banner.svg" alt="Glitch-style AMAN banner with system online status" width="100%">
 
 ### A neon-soaked portfolio from the edge of the matrix.
 
 **Full Stack Developer · Prompt Engineer · Digital Builder**
 
 [![Live Site](https://img.shields.io/badge/ENTER_THE_MATRIX-amanweb--lemon.vercel.app-00e5ff?style=for-the-badge&logo=vercel&logoColor=white)](https://amanweb-lemon.vercel.app)
+
+</div>
+
+---
+
+<div align="center">
+
+### `LIVE INTERFACE // FIRST CONTACT`
+
+<a href="https://amanweb-lemon.vercel.app">
+  <img src="./public/portfolio-preview.png" alt="Screenshot of the live cyberpunk portfolio homepage" width="92%">
+</a>
+
+*Click the preview to launch the live portfolio.*
 
 </div>
 
