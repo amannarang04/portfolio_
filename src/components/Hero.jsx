@@ -96,7 +96,10 @@ const Hero = () => {
               >
                 <button 
                   onMouseEnter={() => soundManager.play('hover')}
-                  onClick={() => soundManager.play('click')}
+                  onClick={() => {
+                    soundManager.play('click');
+                    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className="cyber-btn flex items-center justify-center gap-2 group"
                 >
                   <Terminal size={20} className="group-hover:animate-pulse" />
